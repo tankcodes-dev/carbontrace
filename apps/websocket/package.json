@@ -1,0 +1,20 @@
+{
+	"name": "websocket",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "pnpm tsc -b && node ./dist/index.js",
+		"build": "pnpm tsc -b",
+		"start": "node ./dist/index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@repo/typescript-config": "workspace:*",
+		"@repo/database": "workspace:*",
+		"@types/ws": "^8.18.1",
+		"ws": "^8.18.3"
+	}
+}

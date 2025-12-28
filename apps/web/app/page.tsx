@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import { auth, signOut } from "@repo/auth";
 import { redirect } from "next/navigation";
 import axios from "axios";
+import { prisma } from "@repo/database";
 
 export default async function Home() {
 	const session = await auth();
@@ -13,6 +14,9 @@ export default async function Home() {
 				Authorization: `Bearer ${session.accessToken}`,
 			},
 		});
+
+		const userfromDb = await prisma.user.findFirst();
+
 		return (
 			<div className={styles.page}>
 				<div>
@@ -25,6 +29,7 @@ export default async function Home() {
 					>
 						<button type="submit">Sign Out</button>
 					</form>
+					{`Email: ${userfromDb?.email}`}
 					{JSON.stringify(response.data)}
 				</div>
 			</div>
