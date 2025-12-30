@@ -23,10 +23,12 @@ jobs:
                       export NVM_DIR="$HOME/.nvm"
                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+                      cd carbontrace
+                      git pull origin staging
+
                       # Use Node version from .nvmrc
                       nvm use
-
-                      cd carbontrace
+                      
                       pnpm install
                       pnpm build
                       pm2 reload all
