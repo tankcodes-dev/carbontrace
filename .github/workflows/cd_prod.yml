@@ -24,7 +24,7 @@ jobs:
                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
                       cd carbontrace
-                      git pull origin staging
+                      git pull origin production
 
                       # Use Node version from .nvmrc
                       nvm use
