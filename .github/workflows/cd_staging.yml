@@ -12,7 +12,7 @@ jobs:
     steps: 
       - name: SSH into staging server
       - run: |
-          ssh -i ${{SSH_PRIVATE_KEY}} ubuntu@${{STAGING_SERVER_IP}}
+          ssh -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@${{secrets.STAGING_SERVER_IP}}
           cd carbontrace
           git pull origin staging
           pnpm install
