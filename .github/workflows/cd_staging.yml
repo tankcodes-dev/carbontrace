@@ -20,11 +20,8 @@ jobs:
 
             - name: Deploy over SSH
               run: |
-                  ssh ubuntu@${{ secrets.STAGING_SERVER_IP }} "bash -lc '
+                  ssh ubuntu@${{ secrets.STAGING_SERVER_IP }}
                     cd carbontrace
-                    nvm use --lts
                     pnpm install
                     pnpm build
-                    pm2 restart all 
-                    '"
-
+                    pm2 restart all
