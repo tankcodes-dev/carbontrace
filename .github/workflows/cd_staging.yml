@@ -6,22 +6,27 @@ on:
             - staging
 
 jobs:
-    redeploy_everything:
+    deploy:
         runs-on: ubuntu-latest
-        name: Deploying to staging server
 
         steps:
-            - name: Set up SSH key
-              run: |
-                  mkdir -p ~/.ssh
-                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-                  chmod 600 ~/.ssh/id_rsa
-                  ssh-keyscan -H ${{ secrets.STAGING_SERVER_IP }} >> ~/.ssh/known_hosts
-
             - name: Deploy over SSH
-              run: |
-                  ssh ubuntu@${{ secrets.STAGING_SERVER_IP }}
-                    cd carbontrace
-                    pnpm install
-                    pnpm build
-                    pm2 restart all
+              uses: appleboy/ssh-action@v1.0.0
+              with:
+                  host: ${{ secrets.STAGING_SERVER_IP }}
+                  username: ubuntu
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: |
+                      set -e
+
+                      # Load nvm
+                      export NVM_DIR="$HOME/.nvm"
+                      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+                      # Use Node version from .nvmrc
+                      nvm use
+
+                      cd carbontrace
+                      pnpm install
+                      pnpm build
+                      pm2 reload all
