@@ -10,7 +10,6 @@ jobs:
         name: Deploying to staging server
 
         steps:
-            name: SSH into staging server
             run: |
                 ssh -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@${{secrets.STAGING_SERVER_IP}}
                 cd carbontrace
